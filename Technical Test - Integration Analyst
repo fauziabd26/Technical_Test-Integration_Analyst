@@ -1,0 +1,42 @@
+Technical Test - Integration Analyst
+Fauzi Abdilah Al Fatah
+
+1. Deskripsi Diagram
+    Diagram ini menunjukkan arsitektur sistem terintegrasi untuk aplikasi pinjaman online, menggunakan microservices, integrasi SOA, dan komunikasi dengan core banking system.
+
+    - Tiga service Spring Boot: mewakili layanan terpisah seperti User, Loan, dan Payment Service.
+    - Service Worker: menangani proses background seperti sinkronisasi atau notifikasi.
+    - SOA Integration: middleware penghubung antara microservices dan core banking system.
+    - Core Banking System: sistem inti yang menyimpan data dan proses keuangan nasabah.
+    - OpenAPI 3.1: standar dokumentasi API yang memudahkan integrasi antar tim.
+    - Kibana: tools monitoring dan log analysis untuk troubleshooting.
+    - Jenkins: sistem CI/CD untuk otomatisasi build dan deployment aplikasi.
+2. Rancangan API - Pengajuan Pinjaman
+      Endpoint: POST /api/loans/apply
+      Deskripsi: API untuk pengajuan pinjaman oleh user.
+
+      Request Header:
+      Authorization: Bearer {token}
+      Content-Type: application/json
+      
+      Request Body:
+      {
+        "user_id": "4c096e92-4164-43d2-b6eb-20866b10bda7",
+        "amount": 5000000,
+        "tenor": 6,
+        "loan_purpose": "Modal usaha kecil",
+        "income_per_month": 7000000,
+        "existing_loans": false
+      }
+
+      Response Success (201):
+      {
+        "loan_id": "4c096e92-4164-43d2-b6eb-20866b10bda7",
+        "status": "pending_verification",
+        "message": "Loan application received."
+      }
+
+      Response Error (400):
+      {
+        "error": "Invalid tenor or amount."
+      }
